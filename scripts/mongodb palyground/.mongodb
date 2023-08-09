@@ -1,0 +1,2 @@
+use('leetcode-cards');
+db['cards info(08/09/2023)'].find();
