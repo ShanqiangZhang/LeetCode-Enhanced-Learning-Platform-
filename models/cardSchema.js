@@ -24,6 +24,9 @@ const cardSchema = new mongoose.Schema({
 
 // cardSchema.index({ titleSlug: 1 });
 
+// official collection
 const Card = mongoose.model('Card', cardSchema, 'cards info(08/09/2023)');
+//cards test collection
+// const Card = mongoose.model('Card', cardSchema, 'cards test');
 
 module.exports = Card;

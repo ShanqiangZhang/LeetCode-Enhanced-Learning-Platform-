@@ -1,6 +1,6 @@
 const express = require('express');
 // const dotenv = require('dotenv');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Card = require('./models/cardSchema');
 const connectDB = require('./DBConfig/dbConnect');
 
@@ -9,7 +9,8 @@ const app = express();
 //1. connect database
 connectDB()
   .then(() => {
-    console.log('connected to database');
+    const dbName = mongoose.connection.db.databaseName;
+    console.log('connected to database:', dbName);
   })
   .catch((err) => {
     console.log('connected  falied', err);

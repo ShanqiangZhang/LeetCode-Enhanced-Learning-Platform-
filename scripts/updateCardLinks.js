@@ -7,7 +7,8 @@ dotenv.config({ path: './config.env' });
 
 connectDB()
   .then(() => {
-    console.log('database connected');
+    const dbName = mongoose.connection.db.databaseName;
+    console.log('database connected', dbName);
     const cursor = Card.find({}).cursor();
 
     console.time('updateCardLinks');
