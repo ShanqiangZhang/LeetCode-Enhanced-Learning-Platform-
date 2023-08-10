@@ -1,27 +1,19 @@
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const express = require('express');
+// const dotenv = require('dotenv');
+// const mongoose = require('mongoose');
 const Card = require('./models/cardSchema');
+const connectDB = require('./DBConfig/dbConnect');
 
 const app = express();
 
 //1. connect database
-dotenv.config({ path: './config.env' });
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD,
-);
-
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+connectDB()
   .then(() => {
-    console.log('connected database');
-    console.log('Connected to database', mongoose.connection.db.databaseName);
+    console.log('connected to database');
   })
-  .catch((err) => console.log('connected failed', err));
+  .catch((err) => {
+    console.log('connected  falied', err);
+  });
 
 // 2.api
 app.get('/', (req, res) => {
