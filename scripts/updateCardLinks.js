@@ -23,7 +23,7 @@ connectDB()
         console.error(err);
       })
       .finally(() => {
-        console.timeEnd('updateCardsLinks');
+        console.timeEnd('updateCardLinks');
         mongoose.connection.close();
         process.exit();
       });
