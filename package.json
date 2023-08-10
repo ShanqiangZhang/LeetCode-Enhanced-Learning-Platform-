@@ -15,6 +15,7 @@
   "author": "shanqiang zhang",
   "license": "ISC",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.3.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
