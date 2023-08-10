@@ -1,8 +1,9 @@
 const express = require('express');
-// const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const Card = require('./models/cardSchema');
 const connectDB = require('./DBConfig/dbConnect');
+
+const LeetCodeCardRouter = require('./routes/LeetCodeCardRoutes');
 
 const app = express();
 
@@ -16,21 +17,10 @@ connectDB()
     console.log('connected  falied', err);
   });
 
-// 2.api
+// 2.router
+app.use('/leetcode-cards', LeetCodeCardRouter);
 app.get('/', (req, res) => {
   res.send('hello form root');
-});
-
-app.get('/cards', (req, res) => {
-  Card.find()
-    .then((cards) => {
-      // console.log('Cards retrieved from database:', cards);
-      res.json(cards);
-    })
-    .catch((err) => {
-      console.error('error retrieving card:', err);
-      res.status(500).send('error retrieving card');
-    });
 });
 
 //3. start server
