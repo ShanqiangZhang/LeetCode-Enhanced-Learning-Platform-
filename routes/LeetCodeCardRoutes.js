@@ -1,9 +1,9 @@
 const express = require('express');
-const cardController = require('../controllers/cardController');
+const TemplateCardController = require('../controllers/cardController');
 
 const router = express.Router();
 
-router.route('/').get(cardController.getAllCards);
-router.route('/:id').get(cardController.getCardById);
+router.route('/').get(TemplateCardController.getAllCards);
+router.route('/:id').get(TemplateCardController.getCardById);
 
 module.exports = router;

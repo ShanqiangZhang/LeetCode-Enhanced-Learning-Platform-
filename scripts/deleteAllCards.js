@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const Card = require('../models/cardSchema');
+const TemplateCard = require('../models/TemplateCardSchema');
 const connectDB = require('../DBConfig/dbConnect');
 
 connectDB()
   .then(() => {
     console.log('Database connected');
-    return Card.deleteMany({});
+    return TemplateCard.deleteMany({});
   })
   .then(() => {
     console.log('All documents in the Card collection have been deleted.');

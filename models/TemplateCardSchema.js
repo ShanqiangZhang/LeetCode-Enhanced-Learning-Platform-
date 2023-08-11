@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cardSchema = new mongoose.Schema({
+const TemplateCardSchema = new mongoose.Schema({
   questionId: Number,
   title: String,
   titleSlug: String,
@@ -25,8 +25,12 @@ const cardSchema = new mongoose.Schema({
 // cardSchema.index({ titleSlug: 1 });
 
 // official collection
-const Card = mongoose.model('Card', cardSchema, 'cards info(08/09/2023)');
+const TemplateCard = mongoose.model(
+  'TemplateCard',
+  TemplateCardSchema,
+  'cards info(08/09/2023)',
+);
 //cards test collection
-// const Card = mongoose.model('Card', cardSchema, 'cards test');
+// const Card = mongoose.model('TemplateCard', cardSchema, 'cards test');
 
-module.exports = Card;
+module.exports = TemplateCard;

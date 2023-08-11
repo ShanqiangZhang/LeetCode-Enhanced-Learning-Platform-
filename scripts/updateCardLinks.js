@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Card = require('../models/cardSchema');
+const TemplateCard = require('../models/TemplateCardSchema');
 const connectDB = require('../DBConfig/dbConnect');
 
 dotenv.config({ path: './config.env' });
@@ -9,7 +9,7 @@ connectDB()
   .then(() => {
     const dbName = mongoose.connection.db.databaseName;
     console.log('database connected', dbName);
-    const cursor = Card.find({}).cursor();
+    const cursor = TemplateCard.find({}).cursor();
 
     console.time('updateCardLinks');
     cursor

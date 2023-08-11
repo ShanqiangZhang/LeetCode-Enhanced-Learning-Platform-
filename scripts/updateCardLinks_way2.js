@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const Card = require('../models/cardSchema');
+const TemplateCard = require('../models/TemplateCardSchema');
 const connectDB = require('../DBConfig/dbConnect');
 
 connectDB()
   .then(() => {
     console.log('Database connected');
     console.time('updateCards2');
-    return Card.find({});
+    return TemplateCard.find({});
   })
   .then((cards) => {
     const bulkOps = cards.map((card) => ({
@@ -20,7 +20,7 @@ connectDB()
       },
     }));
 
-    return Card.bulkWrite(bulkOps);
+    return TemplateCard.bulkWrite(bulkOps);
   })
   .then(() => {
     console.log('All cards updated successfully.');
