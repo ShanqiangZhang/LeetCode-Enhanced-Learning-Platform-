@@ -14,10 +14,10 @@ connectDB()
         filter: { _id: card._id },
         update: {
           $set: {
-            link: `https://www.leetcode.com/problems/${card.titleSlug}/`,
-          },
-        },
-      },
+            link: `https://www.leetcode.com/problems/${card.titleSlug}/`
+          }
+        }
+      }
     }));
 
     return TemplateCard.bulkWrite(bulkOps);

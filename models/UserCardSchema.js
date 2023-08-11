@@ -8,14 +8,14 @@ const UserCardSchema = new mongoose.Schema({
   curBucket: Number,
   studied: {
     type: Boolean,
-    default: false,
+    default: false
   },
   studyHistory: [
     {
       studyDate: Date,
-      bucket: Number,
-    },
-  ],
+      bucket: Number
+    }
+  ]
 });
 
 const UserCard = mongoose.model('UserCard', UserCardSchema, 'user-cards');

@@ -13,7 +13,7 @@ async function runTest() {
       googleId: 'google-id-1',
       name: 'User-1',
       email: 'user1@example.com',
-      avatar: 'sample-avatar-url',
+      avatar: 'sample-avatar-url'
     });
     await user.save();
     console.log('user created:', user);
@@ -33,7 +33,7 @@ async function runTest() {
       card: templateCard._id,
       timestamp: new Date(),
       nextStudyDate: new Date(),
-      curBucket: 1,
+      curBucket: 1
     });
     await userCard.save();
     console.log('UserCard created:', userCard);
@@ -54,8 +54,8 @@ async function runTest() {
       path: 'cards',
       populate: {
         path: 'card',
-        model: 'TemplateCard',
-      },
+        model: 'TemplateCard'
+      }
     });
     console.log('User with populated cards:', userWithCards);
   } catch (err) {
@@ -69,8 +69,8 @@ async function printUserCardInfo(googleId) {
       path: 'cards',
       populate: {
         path: 'card',
-        model: 'TemplateCard',
-      },
+        model: 'TemplateCard'
+      }
     });
 
     if (!user) {
