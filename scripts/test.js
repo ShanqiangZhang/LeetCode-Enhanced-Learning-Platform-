@@ -19,7 +19,7 @@ async function runTest() {
     console.log('user created:', user);
 
     //fetch template card
-    const templateCardId = '64d46ec42ee718ca86762fe5';
+    const templateCardId = '64d698a8636d13f9e715dde9';
     const templateCard = await TemplateCard.findById(templateCardId);
     if (!templateCard) {
       console.error('No TemplateCard found with the given ID:', templateCardId);

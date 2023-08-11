@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const TemplateCard = require('../models/TemplateCardSchema');
-const connectDB = require('../DBConfig/dbConnect');
+const TemplateCard = require('../../models/TemplateCardSchema');
+const connectDB = require('../../DBConfig/dbConnect');
 
 dotenv.config({ path: './config.env' });
 

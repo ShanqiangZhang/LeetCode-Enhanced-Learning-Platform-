@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const UserCardSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  card: { type: mongoose.Schema.Types.ObjectId, ref: 'TemplateCard' }, // 引用模板卡片
+  card: { type: mongoose.Schema.Types.ObjectId, ref: 'TemplateCard' },
   timestamp: Date,
-  nextStudyDate: Date, // 下次学习日期
+  nextStudyDate: Date,
   curBucket: Number,
   studied: {
     type: Boolean,
@@ -15,7 +15,12 @@ const UserCardSchema = new mongoose.Schema({
       studyDate: Date,
       bucket: Number
     }
-  ]
+  ],
+  Note: {
+    type: String,
+    trim: true,
+    default: ''
+  }
 });
 
 const UserCard = mongoose.model('UserCard', UserCardSchema, 'user-cards');

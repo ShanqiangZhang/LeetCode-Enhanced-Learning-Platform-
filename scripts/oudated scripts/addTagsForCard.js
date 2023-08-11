@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const TemplateCard = require('../models/TemplateCardSchema');
-const connectDB = require('../DBConfig/dbConnect');
+const TemplateCard = require('../../models/TemplateCardSchema');
+const connectDB = require('../../DBConfig/dbConnect');
 
 connectDB()
   .then(() => {
