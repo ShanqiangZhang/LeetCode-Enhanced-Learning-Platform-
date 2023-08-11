@@ -4,6 +4,8 @@ const TemplateCard = require('../models/TemplateCardSchema');
 const UserCard = require('../models/UserCardSchema');
 const connectDB = require('../DBConfig/dbConnect');
 
+//create user, user car and template card
+// test connections between then
 async function runTest() {
   try {
     //create a user
