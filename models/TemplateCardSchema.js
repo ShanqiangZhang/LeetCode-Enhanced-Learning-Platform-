@@ -12,7 +12,6 @@ const TemplateCardSchema = new mongoose.Schema({
   acRate: String,
   frontendQuestionId: Number,
   paidOnly: Boolean,
-  // topicTags: String,
   topicTags: [String],
   hasSolution: Boolean,
   hasVideoSolution: Boolean,
@@ -21,8 +20,6 @@ const TemplateCardSchema = new mongoose.Schema({
   totalSubmission: Number,
   link: String,
 });
-
-// cardSchema.index({ titleSlug: 1 });
 
 // official collection
 const TemplateCard = mongoose.model(

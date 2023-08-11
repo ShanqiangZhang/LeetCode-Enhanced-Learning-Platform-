@@ -5,14 +5,15 @@ const UserCardSchema = new mongoose.Schema({
   card: { type: mongoose.Schema.Types.ObjectId, ref: 'TemplateCard' }, // 引用模板卡片
   timestamp: Date,
   nextStudyDate: Date, // 下次学习日期
+  curBucket: Number,
   studied: {
     type: Boolean,
     default: false,
   },
   studyHistory: [
     {
-      studyDate: Date, // 学习日期
-      bucket: Number, // 桶编号
+      studyDate: Date,
+      bucket: Number,
     },
   ],
 });
