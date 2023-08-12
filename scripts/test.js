@@ -10,9 +10,9 @@ async function runTest() {
   try {
     //create a user
     const user = new User({
-      googleId: 'google-id-1',
-      name: 'User-1',
-      email: 'user1@example.com',
+      googleId: 'google-id-2',
+      name: 'User-2',
+      email: 'user2@example.com',
       avatar: 'sample-avatar-url'
     });
     await user.save();
@@ -92,7 +92,7 @@ connectDB()
   .then(() => {
     console.log(mongoose.connection.db.databaseName, ' database connected');
     // return runTest();
-    return printUserCardInfo('google-id-1');
+    return printUserCardInfo('google-id-2');
   })
   .then(() => {
     mongoose.connection.close();
