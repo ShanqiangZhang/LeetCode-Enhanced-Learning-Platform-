@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-syntax */
+// eslint-disable-next-line import/no-extraneous-dependencies
 const axios = require('axios');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');

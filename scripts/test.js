@@ -6,6 +6,7 @@ const connectDB = require('../DBConfig/dbConnect');
 
 //create user, user car and template card
 // test connections between then
+// eslint-disable-next-line no-unused-vars
 async function runTest() {
   try {
     //create a user

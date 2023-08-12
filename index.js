@@ -6,6 +6,7 @@ const connectDB = require('./DBConfig/dbConnect');
 const LeetCodeCardRouter = require('./routes/LeetCodeCardRoutes');
 
 const app = express();
+app.use(express.json());
 
 //1. connect database
 connectDB()

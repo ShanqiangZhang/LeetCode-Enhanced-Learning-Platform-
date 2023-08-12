@@ -1,21 +1,10 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const TemplateCard = require('../models/TemplateCardSchema');
 const UserCard = require('../models/UserCardSchema');
 
-/**
- * Retrieves all template cards and marks the ones selected by a specific user.
- *
- * 1. Finds all UserCard documents associated with the given userId and populates the card field.
- * 2. Extracts the TemplateCard IDs from the UserCard documents.
- * 3. Retrieves all TemplateCards and creates a new object for each one with an additional 'selected' field.
- *    The 'selected' field is set to true if the TemplateCard ID is found in the extracted IDs from step 2.
- * 4. Sends a JSON response with the augmented TemplateCards.
- *
- * @async
- * @param {Object} req - The request object, containing user information.
- * @param {Object} res - The response object.
- * @throws {Error} If there's an error in retrieving the data from the database.
- */
 exports.getAllCards = async (req, res) => {
   try {
     // const userId = req.user._id;
@@ -37,20 +26,65 @@ exports.getAllCards = async (req, res) => {
   }
 };
 
-exports.getCardById = async (req, res, next) => {
-  const paramId = req.params.id;
-  const questionId = parseInt(paramId, 10);
-  if (isNaN(questionId)) {
-    return res.status(400).json({ message: 'invalid questionId' });
-  }
+exports.addLeetCodeCard = async (req, res, next) => {
   try {
-    const card = await TemplateCard.findOne({ questionId: questionId });
-    //等同于 const card = Card.findById(re.params.id);
-    if (!card) {
-      return res.status(404).json({ message: 'card not found' });
+    // const userId = req.user._id;
+    //test user id
+    const userId = '64d703415f9dabd0ff66396c';
+    const { templateCardIds } = req.body;
+
+    const newUserCardsData = [];
+    for (const templateCardId of templateCardIds) {
+      const templateCard = await TemplateCard.findById(templateCardId);
+      if (!templateCard) {
+        throw new Error(`Template card not found for id: ${templateCardId}`);
+      }
+      const existingUserCard = await UserCard.findOne({
+        userId,
+        card: templateCardId
+      });
+      if (existingUserCard) {
+        console.log(
+          'User card already exists for this user and template card.'
+        );
+        continue;
+      }
+      newUserCardsData.push({
+        userId,
+        card: templateCardId,
+        timestamp: new Date(),
+        nextStudyDate: new Date(),
+        curBucket: 1
+      });
     }
-    res.json(card);
+    // 创建并保存所有新用户卡片
+    const userCards =
+      newUserCardsData.length > 0
+        ? await UserCard.insertMany(newUserCardsData)
+        : [];
+
+    // 返回新创建的用户卡片（如果需要）
+    res.json(userCards);
   } catch (err) {
     res.status(500).json(err);
+    console.error(err);
   }
 };
+
+// exports.getCardById = async (req, res, next) => {
+//   const paramId = req.params.id;
+//   const questionId = parseInt(paramId, 10);
+//   if (isNaN(questionId)) {
+//     return res.status(400).json({ message: 'invalid questionId' });
+//   }
+//   try {
+//     const card = await TemplateCard.findOne({ questionId: questionId });
+//     //等同于 const card = Card.findById(re.params.id);
+//     if (!card) {
+//       return res.status(404).json({ message: 'card not found' });
+//     }
+//     res.json(card);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
