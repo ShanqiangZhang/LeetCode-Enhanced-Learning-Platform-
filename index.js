@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const connectDB = require('./DBConfig/dbConnect');
 
 const LeetCodeCardRouter = require('./routes/LeetCodeCardRoutes');
+const StudyPlanRouter = require('./routes/StudyPlanRoutes');
 
 const app = express();
 app.use(express.json());
@@ -19,10 +20,11 @@ connectDB()
   });
 
 // 2.router
-app.use('/leetcode-cards', LeetCodeCardRouter);
 app.get('/', (req, res) => {
   res.send('hello form root');
 });
+app.use('/v1/leetcode-cards', LeetCodeCardRouter);
+app.use('/v1/study-plan', StudyPlanRouter);
 
 //3. start server
 const port = process.env.PORT || 3001;
