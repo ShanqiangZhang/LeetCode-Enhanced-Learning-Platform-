@@ -9,6 +9,7 @@ require('./auth/passport-setup');
 const LeetCodeCardRouter = require('./routes/LeetCodeCardRoutes');
 const StudyPlanRouter = require('./routes/StudyPlanRoutes');
 const authRouter = require('./auth/authRoutes');
+const UserCardsRouter = require('./routes/UserCardsRoutes');
 
 const app = express();
 app.use(express.json());
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 app.use('/v1/leetcode-cards', LeetCodeCardRouter);
 app.use('/v1/study-plan', StudyPlanRouter);
 app.use('/v1/auth', authRouter);
+app.use('/v1/user-cards', UserCardsRouter);
 
 //3. start server
 const port = process.env.PORT || 3001;

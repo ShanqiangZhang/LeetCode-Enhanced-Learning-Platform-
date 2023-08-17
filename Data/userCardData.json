@@ -1,0 +1,110 @@
+[
+    {
+        "_id": "64d713ae6a067f9f391ddee7",
+        "userId": "64d703415f9dabd0ff66396c",
+        "card": {
+            "_id": "64d698a8636d13f9e715ddeb",
+            "questionId": 3,
+            "title": "Longest Substring Without Repeating Characters",
+            "titleSlug": "longest-substring-without-repeating-characters",
+            "isPaidOnly": false,
+            "difficulty": "Medium",
+            "likes": 36111,
+            "dislikes": 1620,
+            "categoryTitle": "Algorithms",
+            "acRate": "33.9%",
+            "frontendQuestionId": 3,
+            "paidOnly": false,
+            "topicTags": [
+                "Hash Table",
+                "String",
+                "Sliding Window"
+            ],
+            "hasSolution": true,
+            "hasVideoSolution": true,
+            "acRateRaw": 33.908907195272384,
+            "totalAccepted": 4763633,
+            "totalSubmission": 14048351,
+            "link": "https://www.leetcode.com/problems/longest-substring-without-repeating-characters/"
+        },
+        "timestamp": "2023-08-12T05:07:58.518Z",
+        "nextStudyDate": "2023-08-12T05:07:58.518Z",
+        "curBucket": 1,
+        "studied": false,
+        "Note": "",
+        "studyHistory": [],
+        "__v": 0
+    },
+    {
+        "_id": "64d713ae6a067f9f391ddee6",
+        "userId": "64d703415f9dabd0ff66396c",
+        "card": {
+            "_id": "64d698a8636d13f9e715ddea",
+            "questionId": 2,
+            "title": "Add Two Numbers",
+            "titleSlug": "add-two-numbers",
+            "isPaidOnly": false,
+            "difficulty": "Medium",
+            "likes": 27575,
+            "dislikes": 5318,
+            "categoryTitle": "Algorithms",
+            "acRate": "41.0%",
+            "frontendQuestionId": 2,
+            "paidOnly": false,
+            "topicTags": [
+                "Linked List",
+                "Math",
+                "Recursion"
+            ],
+            "hasSolution": true,
+            "hasVideoSolution": true,
+            "acRateRaw": 40.952893320945286,
+            "totalAccepted": 3806091,
+            "totalSubmission": 9293826,
+            "link": "https://www.leetcode.com/problems/add-two-numbers/"
+        },
+        "timestamp": "2023-08-12T05:07:58.518Z",
+        "nextStudyDate": "2023-08-12T05:07:58.518Z",
+        "curBucket": 1,
+        "studied": false,
+        "Note": "",
+        "studyHistory": [],
+        "__v": 0
+    },
+    {
+        "_id": "64d713ae6a067f9f391ddee8",
+        "userId": "64d703415f9dabd0ff66396c",
+        "card": {
+            "_id": "64d698a8636d13f9e715ddec",
+            "questionId": 4,
+            "title": "Median of Two Sorted Arrays",
+            "titleSlug": "median-of-two-sorted-arrays",
+            "isPaidOnly": false,
+            "difficulty": "Hard",
+            "likes": 24953,
+            "dislikes": 2763,
+            "categoryTitle": "Algorithms",
+            "acRate": "37.1%",
+            "frontendQuestionId": 4,
+            "paidOnly": false,
+            "topicTags": [
+                "Array",
+                "Binary Search",
+                "Divide and Conquer"
+            ],
+            "hasSolution": true,
+            "hasVideoSolution": false,
+            "acRateRaw": 37.06681745558708,
+            "totalAccepted": 2024857,
+            "totalSubmission": 5462736,
+            "link": "https://www.leetcode.com/problems/median-of-two-sorted-arrays/"
+        },
+        "timestamp": "2023-08-12T05:07:58.980Z",
+        "nextStudyDate": "2023-08-12T05:07:58.980Z",
+        "curBucket": 1,
+        "studied": false,
+        "Note": "",
+        "studyHistory": [],
+        "__v": 0
+    }
+]

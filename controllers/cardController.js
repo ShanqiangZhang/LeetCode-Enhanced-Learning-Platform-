@@ -11,9 +11,7 @@ exports.getAllCards = async (req, res) => {
     //test user id
     const userId = '64d703415f9dabd0ff66396c';
     const userCards = await UserCard.find({ userId }).populate('card');
-    const selectedTemplateCardIds = userCards.map((userCard) =>
-      userCard.card._id.toString()
-    );
+    const selectedTemplateCardIds = userCards.map((userCard) => userCard.card._id.toString());
     const templateCards = await TemplateCard.find();
     const cardsWithSelection = templateCards.map((card) => ({
       ...card._doc,
@@ -44,9 +42,7 @@ exports.addLeetCodeCard = async (req, res, next) => {
         card: templateCardId
       });
       if (existingUserCard) {
-        console.log(
-          'User card already exists for this user and template card.'
-        );
+        console.log('User card already exists for this user and template card.');
         continue;
       }
       newUserCardsData.push({
@@ -59,9 +55,7 @@ exports.addLeetCodeCard = async (req, res, next) => {
     }
     // 创建并保存所有新用户卡片
     const userCards =
-      newUserCardsData.length > 0
-        ? await UserCard.insertMany(newUserCardsData)
-        : [];
+      newUserCardsData.length > 0 ? await UserCard.insertMany(newUserCardsData) : [];
 
     // 返回新创建的用户卡片（如果需要）
     res.json(userCards);

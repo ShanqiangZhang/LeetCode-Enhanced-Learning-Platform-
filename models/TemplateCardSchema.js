@@ -22,11 +22,7 @@ const TemplateCardSchema = new mongoose.Schema({
 });
 
 // official collection
-const TemplateCard = mongoose.model(
-  'TemplateCard',
-  TemplateCardSchema,
-  'cards info(08/09/2023)'
-);
+const TemplateCard = mongoose.model('TemplateCard', TemplateCardSchema, 'cards info(08/09/2023)');
 //cards test collection
 // const Card = mongoose.model('TemplateCard', cardSchema, 'cards test');
 

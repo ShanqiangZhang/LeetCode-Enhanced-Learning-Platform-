@@ -25,9 +25,7 @@ exports.updateStudyProgress = async (req, res) => {
 
     const userCard = await UserCard.findById(userCardId);
     if (!userCard) {
-      return res
-        .status(404)
-        .json({ error: `User card not found for id: ${userCardId}` });
+      return res.status(404).json({ error: `User card not found for id: ${userCardId}` });
     }
     let { curBucket } = userCard;
     let daysToAdd = 0;
