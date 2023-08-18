@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const Card = require('./models/TemplateCardSchema');
 const passport = require('passport');
 const session = require('express-session');
+const cors = require('cors');
+const cookieParser = require('cookie-parser'); // 添加cookie-parser模块
+const jwt = require('jsonwebtoken');
 const connectDB = require('./DBConfig/dbConnect');
 require('./auth/passport-setup');
 
@@ -14,10 +16,16 @@ const UserCardsRouter = require('./routes/UserCardsRoutes');
 const app = express();
 app.use(express.json());
 
+// CORS配置
+app.use(cors({ origin: 'http://localhost:3000', credentials: true })); // 添加CORS中间件
+
+// 使用cookie-parser
+app.use(cookieParser());
+
 // 会话配置
 app.use(
   session({
-    secret: process.env.JWT_SECRET, // 请替换为你自己的密钥
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true
   })
@@ -27,26 +35,27 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//1. connect database
+// 1. connect database
 connectDB()
   .then(() => {
     const dbName = mongoose.connection.db.databaseName;
     console.log('connected to database:', dbName);
   })
   .catch((err) => {
-    console.log('connected  falied', err);
+    console.log('connected failed', err);
   });
 
-// 2.router
+// 2. router
 app.get('/', (req, res) => {
   res.send('hello form root');
 });
+
 app.use('/v1/leetcode-cards', LeetCodeCardRouter);
 app.use('/v1/study-plan', StudyPlanRouter);
 app.use('/v1/auth', authRouter);
 app.use('/v1/user-cards', UserCardsRouter);
 
-//3. start server
+// 3. start server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`app running on port ${port}`);

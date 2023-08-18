@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true },
   avatar: String, // 用户的头像URL
-  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserCard' }] // 用户的卡片，与UserCard集合相关联
+  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserCard', default: [] }] // 用户的卡片，与UserCard集合相关联
 });
 
 const User = mongoose.model('User', userSchema, 'users');

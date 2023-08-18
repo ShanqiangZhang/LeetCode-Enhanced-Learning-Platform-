@@ -15,26 +15,28 @@ passport.use(
     },
     async (token, tokenSecret, profile, done) => {
       try {
-        const user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ googleId: profile.id });
+        // console.log(user || 'not found user');
 
-        if (user) return done(null, user);
-
-        const newUser = new User({
-          googleId: profile.id,
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          avatar: profile.photos[0].value
-        });
-        await newUser.save();
-
-        const jwtToken = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+        if (!user) {
+          user = new User({
+            googleId: profile.id,
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            avatar: profile.photos[0].value
+          });
+          await user.save();
+        }
+        // console.log(user);
+        // 为这个用户生成一个JWT
+        const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
           expiresIn: '60d'
         });
-        newUser.jwt = jwtToken;
-
-        return done(null, newUser);
+        // 不需要在数据库中保存jwt，但我们可以将它添加到用户对象上，这样我们可以在回调中访问它
+        user.jwt = jwtToken;
+        // console.log(user.jwt);
+        return done(null, user);
       } catch (err) {
-        // 如果有任何错误，记录它并通过 done 回调传递
         console.log('Error:', err);
         return done(err);
       }
