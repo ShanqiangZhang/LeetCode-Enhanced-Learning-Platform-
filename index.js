@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser'); // 添加cookie-parser模块
 const jwt = require('jsonwebtoken');
 const connectDB = require('./DBConfig/dbConnect');
 require('./auth/passport-setup');
+const jwtMiddleware = require('./middlewares/authMiddleware');
 
 const LeetCodeCardRouter = require('./routes/LeetCodeCardRoutes');
 const StudyPlanRouter = require('./routes/StudyPlanRoutes');
@@ -50,10 +51,11 @@ app.get('/', (req, res) => {
   res.send('hello form root');
 });
 
-app.use('/v1/leetcode-cards', LeetCodeCardRouter);
-app.use('/v1/study-plan', StudyPlanRouter);
+// app.use(jwtMiddleware);
+app.use('/v1/leetcode-cards', jwtMiddleware, LeetCodeCardRouter);
+app.use('/v1/study-plan', jwtMiddleware, StudyPlanRouter);
 app.use('/v1/auth', authRouter);
-app.use('/v1/user-cards', UserCardsRouter);
+app.use('/v1/user-cards', jwtMiddleware, UserCardsRouter);
 
 // 3. start server
 const port = process.env.PORT || 3001;

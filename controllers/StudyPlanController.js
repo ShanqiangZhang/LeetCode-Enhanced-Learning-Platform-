@@ -2,9 +2,7 @@ const UserCard = require('../models/UserCardSchema');
 
 exports.getAllDueCards = async (req, res) => {
   try {
-    // const userId = req.user._id;
-    //test user id
-    const userId = '64d703415f9dabd0ff66396c';
+    const userId = req.user._id;
     const cards = await UserCard.find({
       userId,
       nextStudyDate: { $lte: new Date() }
@@ -20,60 +18,67 @@ exports.getAllDueCards = async (req, res) => {
 
 exports.updateStudyProgress = async (req, res) => {
   try {
-    const { userCardId, buttonType: buttonTypeString } = req.params;
+    // const userId = req.user._id;
+    const userCardId = req.params.cardId; // 从URL路径中获取
+    // console.log(req.params);
+    // console.log(userCardId);
+    const { buttonType: buttonTypeString } = req.body; // 从请求体中获取
     const buttonType = parseInt(buttonTypeString, 10);
+    // console.log('用户按下了: ', buttonType);
 
     const userCard = await UserCard.findById(userCardId);
     if (!userCard) {
+      console.log(`User card not found for id: ${userCardId}`);
       return res.status(404).json({ error: `User card not found for id: ${userCardId}` });
     }
     let { curBucket } = userCard;
+    // console.log('当前桶: ', curBucket);
     let daysToAdd = 0;
     const studyRecord = { studyDate: new Date(), bucket: curBucket };
-    switch (buttonType) {
-      case 1:
-        daysToAdd = 1;
-        curBucket = 1;
-        break;
-      case 2:
-        daysToAdd = 3;
-        curBucket = 2;
-        break;
-      case 3:
-        daysToAdd = 7;
-        curBucket = 3;
-        break;
-      case 4:
-        curBucket += 1;
-        switch (curBucket) {
-          case 4:
-            daysToAdd = 15;
-            break;
-          case 5:
-            daysToAdd = 30;
-            break;
-          case 6:
-            daysToAdd = 60;
-            break;
-          case 7:
-            daysToAdd = 360;
-            break;
-          default:
-            console.log('Invalid bucket number');
-        }
-        break;
-      default:
-        console.log('Invalid button type');
+    if (buttonType === 1) {
+      daysToAdd = 1;
+      curBucket = 1;
+    } else if (buttonType === 2) {
+      daysToAdd = 3;
+      curBucket = 2;
+    } else if (buttonType === 3) {
+      daysToAdd = 7;
+      curBucket = 3;
+    } else if (buttonType === 4) {
+      if (curBucket < 4) curBucket = 4;
+      else curBucket += 1;
+      if (curBucket === 4) {
+        daysToAdd = 15;
+      } else if (curBucket === 5) {
+        daysToAdd = 30;
+      } else if (curBucket === 6) {
+        daysToAdd = 60;
+      } else if (curBucket === 7) {
+        daysToAdd = 360;
+      } else {
+        daysToAdd = 360 * 5;
+      }
+    } else {
+      console.log('Invalid button type');
     }
+
+    // console.log('下一次的桶: ', curBucket);
     const nextStudyDate = new Date(userCard.nextStudyDate);
+    // console.log('这次学习时间: ', nextStudyDate);
     nextStudyDate.setDate(nextStudyDate.getDate() + daysToAdd);
+    // console.log('下一次时间: ', nextStudyDate);
 
     userCard.studyHistory.push(studyRecord);
     const updatedUserCard = await UserCard.findByIdAndUpdate(
       userCardId,
-      { nextStudyDate, curBucket },
+      {
+        $push: { studyHistory: studyRecord },
+        nextStudyDate,
+        curBucket
+      },
       { new: true }
     );
+
     res.json(updatedUserCard);
   } catch (err) {
     console.error(err);

@@ -13,8 +13,6 @@ exports.getAllCards = async (req, res) => {
     // console.log('Request Query:', req.query);
 
     const userId = req.user._id;
-    //test user id
-    // const userId = '64d703415f9dabd0ff66396c';
     const userCards = await UserCard.find({ userId }).populate('card');
     const selectedTemplateCardIds = userCards.map((userCard) => userCard.card._id.toString());
     const templateCards = await TemplateCard.find();
@@ -88,4 +86,3 @@ exports.addLeetCodeCard = async (req, res, next) => {
     console.error(err);
   }
 };
-

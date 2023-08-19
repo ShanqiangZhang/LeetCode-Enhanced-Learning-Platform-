@@ -28,9 +28,7 @@ connectDB().then(async () => {
 
   for (const item of data) {
     // modify topicTags
-    item.topicTags = item.topicTags
-      .split(';')
-      .filter((tag) => tag.trim() !== '');
+    item.topicTags = item.topicTags.split(';').filter((tag) => tag.trim() !== '');
 
     // add link with titleSlug
     item.link = `https://www.leetcode.com/problems/${item.titleSlug}/`;
