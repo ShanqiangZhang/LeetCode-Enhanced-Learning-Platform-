@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const dotenv = require('dotenv');
@@ -5,18 +6,26 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/UserSchema');
 
 dotenv.config({ path: './config.env' });
+// const { backend_url } = process.env;
+// const { forntend_url } = process.env;
+// const callbackURL = `${backend_url}/v1/auth/google/callback`;
+const callbackURL = 'http://leetcode-cards.com/v1/auth/google/callback';
+
+console.log(callbackURL);
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3001/v1/auth/google/callback'
+      callbackURL: callbackURL
+      //上线后的回调函数?
+      // callbackURL: `/v1/auth/google/callback`
     },
     async (token, tokenSecret, profile, done) => {
       try {
         let user = await User.findOne({ googleId: profile.id });
-        // console.log(user || 'not found user');
+        console.log(user ? 'user found' : 'not found user');
 
         if (!user) {
           user = new User({
@@ -30,7 +39,7 @@ passport.use(
         // console.log(user);
         // 为这个用户生成一个JWT
         const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: '60d'
+          expiresIn: '360d'
         });
         // 不需要在数据库中保存jwt，但我们可以将它添加到用户对象上，这样我们可以在回调中访问它
         user.jwt = jwtToken;

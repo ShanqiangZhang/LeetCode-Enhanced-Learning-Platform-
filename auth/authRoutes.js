@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
@@ -5,10 +6,17 @@ const User = require('../models/UserSchema');
 const jwtMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
+const { frontend_url } = process.env;
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google', (req, res, next) => {
+  console.log('Attempting Google Authentication');
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
+});
 
 router.get('/google/callback', (req, res, next) => {
+  console.log('/google/callback executed');
   passport.authenticate('google', (err, user, info) => {
     if (err) {
       console.log('Authentication Error:', err);
@@ -37,14 +45,31 @@ router.get('/google/callback', (req, res, next) => {
       }
       // console.log('user: ', user);
       // console.log('JWT Token:', user.jwt);
-      res.cookie('token', user.jwt);
+      //cookie的默认domain是localhost不是 上线前端
+      // res.cookie('token', user.jwt);
+      //上线前端
+      // res.cookie('token', user.jwt, { domain: '.leetcode-cards.com' });
+      res.cookie('token', user.jwt, { domain: '.leetcode-cards.com', path: '/', secure: false });
+
+      //动态获取domain
+      // let domain;
+      // if (req.headers.origin.includes('localhost')) {
+      //   domain = 'localhost';
+      // } else {
+      //   domain = '.leetcode-cards.com';
+      // }
+      // console.log(domain);
+      // res.cookie('token', user.jwt, { domain });
+
       // console.log('cookie', res.cookie);
-      return res.redirect('http://localhost:3000');
+      console.log('execute: google/callback + url', frontend_url);
+      return res.redirect(`${frontend_url}`);
     });
   })(req, res, next);
 });
 
 router.get('/verify', jwtMiddleware, (req, res) => {
+  console.log('verify function executed');
   const { user } = req;
   return res.json({
     user: {

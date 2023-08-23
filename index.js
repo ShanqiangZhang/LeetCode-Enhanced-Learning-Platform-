@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -5,6 +6,7 @@ const session = require('express-session');
 const cors = require('cors');
 const cookieParser = require('cookie-parser'); // 添加cookie-parser模块
 const jwt = require('jsonwebtoken');
+const morgan = require('morgan');
 const connectDB = require('./DBConfig/dbConnect');
 require('./auth/passport-setup');
 const jwtMiddleware = require('./middlewares/authMiddleware');
@@ -14,11 +16,32 @@ const StudyPlanRouter = require('./routes/StudyPlanRoutes');
 const authRouter = require('./auth/authRoutes');
 const UserCardsRouter = require('./routes/UserCardsRoutes');
 
+const { frontend_url } = process.env;
+
 const app = express();
 app.use(express.json());
 
 // CORS配置
-app.use(cors({ origin: 'http://localhost:3000', credentials: true })); // 添加CORS中间件
+// app.use(cors({ origin: `${frontend_url}`, credentials: true })); // 添加CORS中间件
+const allowedOrigins = [
+  'http://leetcode-cards.com',
+  'http://www.leetcode-cards.com',
+  'http://localhost:3000',
+  'http://localhost:3001'
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true
+  })
+);
 
 // 使用cookie-parser
 app.use(cookieParser());
@@ -36,6 +59,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(morgan('combined'));
+
 // 1. connect database
 connectDB()
   .then(() => {
@@ -49,6 +74,9 @@ connectDB()
 // 2. router
 app.get('/', (req, res) => {
   res.send('hello form root');
+});
+app.get('/v1/health', (req, res) => {
+  res.send('API is healthy');
 });
 
 // app.use(jwtMiddleware);
