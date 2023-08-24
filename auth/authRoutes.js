@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 const express = require('express');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const User = require('../models/UserSchema');
+// const jwt = require('jsonwebtoken');
+// const User = require('../models/UserSchema');
 const jwtMiddleware = require('../middlewares/authMiddleware');
+const URLconfig = require('../config/URLConfig');
 
 const router = express.Router();
-const { frontend_url } = process.env;
+// const { frontend_url } = process.env;
 
 // router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -49,21 +50,14 @@ router.get('/google/callback', (req, res, next) => {
       // res.cookie('token', user.jwt);
       //上线前端
       // res.cookie('token', user.jwt, { domain: '.leetcode-cards.com' });
-      res.cookie('token', user.jwt, { domain: '.leetcode-cards.com', path: '/', secure: false });
+      // res.cookie('token', user.jwt);
 
-      //动态获取domain
-      // let domain;
-      // if (req.headers.origin.includes('localhost')) {
-      //   domain = 'localhost';
-      // } else {
-      //   domain = '.leetcode-cards.com';
-      // }
+      res.cookie('token', user.jwt, { domain: URLconfig.domain, path: '/', secure: false });
       // console.log(domain);
       // res.cookie('token', user.jwt, { domain });
-
       // console.log('cookie', res.cookie);
-      console.log('execute: google/callback + url', frontend_url);
-      return res.redirect(`${frontend_url}`);
+      // console.log('execute: google/callback + url', frontend_url);
+      return res.redirect(`${URLconfig.frontend_url}`);
     });
   })(req, res, next);
 });

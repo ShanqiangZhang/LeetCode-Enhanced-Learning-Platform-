@@ -68,7 +68,6 @@ exports.addLeetCodeCard = async (req, res, next) => {
         nextStudyDate: new Date(),
         curBucket: 1
       };
-      
       // Create the user card
       const createdUserCard = await UserCard.create(newUserCardData);
       curUser.cards.push(createdUserCard);

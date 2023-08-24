@@ -16,7 +16,7 @@ const StudyPlanRouter = require('./routes/StudyPlanRoutes');
 const authRouter = require('./auth/authRoutes');
 const UserCardsRouter = require('./routes/UserCardsRoutes');
 
-const { frontend_url } = process.env;
+// const { frontend_url } = process.env;
 
 const app = express();
 app.use(express.json());
