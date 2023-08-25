@@ -1,4 +1,5 @@
-# leetcode-cards.com
+# LeetCode Enhanced Learning Platform
+
 ## [leetcode-cards.com](http://leetcode-cards.com)
 LeetCodeCard is an intelligent problem-management web App for LeetCode enthusiasts. It fetches, ranks, and schedules your LeetCode studies to enhance your problem-solving skills.
 
