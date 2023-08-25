@@ -16,7 +16,7 @@ const URLconfig = require('../config/URLConfig');
 const callbackURL = `${URLconfig.backend_url}/v1/auth/google/callback`;
 // const callbackURL = `http://localhost:3001/v1/auth/google/callback`;
 
-console.log(callbackURL);
+// console.log(callbackURL);
 
 passport.use(
   new GoogleStrategy(
@@ -44,7 +44,7 @@ passport.use(
         // console.log(user);
         // 为这个用户生成一个JWT
         const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: '360d'
+          expiresIn: '60d'
         });
         // 不需要在数据库中保存jwt，但我们可以将它添加到用户对象上，这样我们可以在回调中访问它
         user.jwt = jwtToken;

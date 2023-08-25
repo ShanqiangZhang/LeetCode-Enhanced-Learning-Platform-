@@ -12,12 +12,12 @@ const router = express.Router();
 // router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google', (req, res, next) => {
-  console.log('Attempting Google Authentication');
+  // console.log('Attempting Google Authentication');
   passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
 });
 
 router.get('/google/callback', (req, res, next) => {
-  console.log('/google/callback executed');
+  // console.log('/google/callback executed');
   passport.authenticate('google', (err, user, info) => {
     if (err) {
       console.log('Authentication Error:', err);
